@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/dashboard.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Users</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>Welcome, Admin</h1>
+            <!-- Logout Form -->
+            <form id="logoutForm" action="/admin/logout" method="post">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
+
+        <!-- Search Bar -->
+        <form action="/admin/search" method="get" class="search-form">
+            <input type="text" name="query" placeholder="Search users by name..." class="search-bar" required>
+            <input type="submit" value="Search" class="btn search-btn">
+        </form>
+
+        <div class="content">
+            <h2>User Information</h2>
+            <table>
+                <tr>
+                    <th>Username</th>
+                    <th>Mobile</th>
+                    <th>Place</th>
+                    <th>Actions</th>
+                </tr>
+                <% if(users.length > 0) { %>
+                    <% for(let i = 0 ; i < users.length ; i++ ){ %>
+                    <tr>
+                        <td><%= users[i].username %></td>
+                        <td><%= users[i].mobile %></td>
+                        <td><%= users[i].place %></td>
+                        <td><a href="/admin/edit-user?id=<%= users[i]._id %>" class="btn edit-btn">Edit</a></td>
+                        <td><a href="/admin/delete-user?id=<%= users[i]._id %>" class="btn delete-btn">Delete</a></td>
+                    </tr>
+                    <% } %>
+                <% } %>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 Admin Panel. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
